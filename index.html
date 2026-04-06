@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>블룸 플라워 | 꽃다발 주문</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --pink-light: #fff0f3;
+      --pink-soft: #ffc2d1;
+      --pink-main: #ff85a1;
+      --pink-dark: #c9184a;
+      --pink-muted: #ffb3c6;
+      --text-dark: #3d1a24;
+      --text-mid: #7a3e52;
+      --text-light: #b07080;
+      --white: #ffffff;
+      --shadow: 0 4px 24px rgba(201,24,74,0.08);
+    }
+
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background-color: var(--pink-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* ── 헤더 ── */
+    header {
+      background: var(--white);
+      border-bottom: 2px solid var(--pink-muted);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      font-size: 28px;
+    }
+
+    .logo-text {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--pink-dark);
+      letter-spacing: -0.5px;
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      color: var(--text-light);
+      font-weight: 400;
+      display: block;
+      line-height: 1;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-mid);
+      font-size: 14px;
+      font-weight: 600;
+      margin-left: 24px;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--pink-dark);
+    }
+
+    /* ── 히어로 ── */
+    .hero {
+      background: linear-gradient(135deg, #fff0f3 0%, #ffdde5 60%, #ffb3c6 100%);
+      padding: 80px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: '🌸';
+      position: absolute;
+      font-size: 120px;
+      opacity: 0.12;
+    }
+
+    .hero::before { top: -20px; left: -20px; transform: rotate(-20deg); }
+    .hero::after  { bottom: -20px; right: -20px; transform: rotate(20deg); }
+
+    .hero-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--pink-main);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 900;
+      color: var(--pink-dark);
+      line-height: 1.25;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      font-size: clamp(15px, 2.5vw, 18px);
+      color: var(--text-mid);
+      margin-bottom: 36px;
+    }
+
+    .hero-img-wrap {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto 36px;
+      aspect-ratio: 4/3;
+      background: var(--white);
+      border-radius: 24px;
+      border: 3px dashed var(--pink-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--text-light);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-img-wrap span:first-child {
+      font-size: 64px;
+    }
+
+    .hero-img-wrap span:last-child {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--pink-dark);
+      color: var(--white);
+      text-decoration: none;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      box-shadow: 0 6px 20px rgba(201,24,74,0.3);
+      transition: transform 0.15s, box-shadow 0.15s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(201,24,74,0.35);
+    }
+
+    /* ── 상품 소개 ── */
+    .products {
+      padding: 80px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(22px, 4vw, 36px);
+      font-weight: 900;
+      color: var(--pink-dark);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-title p {
+      color: var(--text-light);
+      font-size: 15px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .product-card {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(201,24,74,0.14);
+    }
+
+    .product-img {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, #fff0f3, #ffdde5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--text-light);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .product-img span:first-child {
+      font-size: 72px;
+    }
+
+    .product-info {
+      padding: 24px;
+    }
+
+    .product-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--pink-main);
+      background: var(--pink-light);
+      padding: 3px 10px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .product-info h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .product-info p {
+      font-size: 14px;
+      color: var(--text-light);
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+
+    .product-price {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--pink-dark);
+    }
+
+    .product-price span {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-light);
+    }
+
+    /* ── 주문 폼 ── */
+    .order-section {
+      background: linear-gradient(135deg, #ffdde5, #ffb3c6);
+      padding: 80px 24px;
+    }
+
+    .order-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .order-form {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 40px 36px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-mid);
+      margin-bottom: 8px;
+    }
+
+    .form-group label .required {
+      color: var(--pink-dark);
+      margin-left: 2px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 2px solid var(--pink-muted);
+      border-radius: 12px;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--text-dark);
+      background: var(--pink-light);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--pink-main);
+      box-shadow: 0 0 0 3px rgba(255,133,161,0.18);
+      background: var(--white);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-submit {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .form-submit .btn-primary {
+      width: 100%;
+      font-size: 18px;
+      padding: 18px;
+    }
+
+    .form-note {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    /* ── 푸터 ── */
+    footer {
+      background: var(--text-dark);
+      color: #c9a0ac;
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--pink-soft);
+      margin-bottom: 6px;
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      margin-bottom: 28px;
+    }
+
+    .footer-contact {
+      font-size: 14px;
+      margin-bottom: 24px;
+      line-height: 2;
+    }
+
+    .footer-contact a {
+      color: var(--pink-soft);
+      text-decoration: none;
+    }
+
+    .sns-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .sns-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 20px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .sns-btn:hover { opacity: 0.8; }
+
+    .sns-btn.instagram {
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366);
+      color: var(--white);
+    }
+
+    .sns-btn.kakao {
+      background: #FEE500;
+      color: #3A1D1D;
+    }
+
+    .sns-btn.naver {
+      background: #03C75A;
+      color: var(--white);
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      border-top: 1px solid #5a2d3a;
+      padding-top: 24px;
+      color: #7a5060;
+    }
+
+    /* ── 반응형 ── */
+    @media (max-width: 600px) {
+      .header-inner nav { display: none; }
+
+      .order-form {
+        padding: 28px 20px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .sns-links {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── 헤더 ── -->
+  <header>
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <span class="logo-icon">🌹</span>
+        <div>
+          <span class="logo-text">블룸 플라워</span>
+          <span class="logo-sub">Bloom Flower</span>
+        </div>
+      </a>
+      <nav>
+        <a href="#products">상품 소개</a>
+        <a href="#order">주문하기</a>
+        <a href="#footer">연락처</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── 히어로 ── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="hero-badge">🎀 당일 배송 가능</span>
+      <h1>마음을 전하는<br/>특별한 꽃다발</h1>
+      <p>소중한 사람에게 정성껏 만든 꽃다발을 선물하세요.<br/>신선한 꽃으로 당일 배송해 드립니다.</p>
+      <div class="hero-img-wrap">
+        <span>💐</span>
+        <span>꽃다발 대표 이미지</span>
+      </div>
+      <a href="#order" class="btn-primary">지금 주문하기 →</a>
+    </div>
+  </section>
+
+  <!-- ── 상품 소개 ── -->
+  <section class="products" id="products">
+    <div class="section-title">
+      <h2>인기 꽃다발 3종</h2>
+      <p>엄선된 신선한 꽃으로 만든 당신만의 특별한 선물</p>
+    </div>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <div class="product-img">
+          <span>🌹</span>
+          <span>장미 이미지</span>
+        </div>
+        <div class="product-info">
+          <span class="product-tag">BEST</span>
+          <h3>장미 꽃다발</h3>
+          <p>사랑과 열정을 담은 붉은 장미 꽃다발. 프리미엄 레드·핑크 장미로 구성되어 특별한 날을 더욱 빛내드립니다.</p>
+          <div class="product-price">55,000원 <span>~ (크기별 상이)</span></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <span>🌷</span>
+          <span>튤립 이미지</span>
+        </div>
+        <div class="product-info">
+          <span class="product-tag">NEW</span>
+          <h3>튤립 꽃다발</h3>
+          <p>봄의 생기를 담은 튤립 꽃다발. 파스텔 톤의 다채로운 색상으로 따뜻하고 사랑스러운 느낌을 전합니다.</p>
+          <div class="product-price">45,000원 <span>~ (크기별 상이)</span></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <span>💐</span>
+          <span>혼합 이미지</span>
+        </div>
+        <div class="product-info">
+          <span class="product-tag">추천</span>
+          <h3>혼합 꽃다발</h3>
+          <p>장미, 튤립, 안개꽃, 유칼립투스 등 다양한 꽃을 조화롭게 담은 풍성한 꽃다발. 가장 인기 있는 구성입니다.</p>
+          <div class="product-price">65,000원 <span>~ (크기별 상이)</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 주문 폼 ── -->
+  <section class="order-section" id="order">
+    <div class="order-inner">
+      <div class="section-title">
+        <h2>꽃다발 주문하기</h2>
+        <p>아래 양식을 작성해 주시면 확인 후 연락드립니다</p>
+      </div>
+      <div class="order-form">
+        <form onsubmit="handleSubmit(event)">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>이름 <span class="required">*</span></label>
+              <input type="text" placeholder="홍길동" required />
+            </div>
+            <div class="form-group">
+              <label>연락처 <span class="required">*</span></label>
+              <input type="tel" placeholder="010-0000-0000" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>상품 선택 <span class="required">*</span></label>
+            <select required>
+              <option value="">-- 꽃다발 종류를 선택하세요 --</option>
+              <option>장미 꽃다발 (소) — 55,000원</option>
+              <option>장미 꽃다발 (대) — 85,000원</option>
+              <option>튤립 꽃다발 (소) — 45,000원</option>
+              <option>튤립 꽃다발 (대) — 75,000원</option>
+              <option>혼합 꽃다발 (소) — 65,000원</option>
+              <option>혼합 꽃다발 (대) — 95,000원</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>배송 희망일 <span class="required">*</span></label>
+              <input type="date" required />
+            </div>
+            <div class="form-group">
+              <label>배송 희망 시간</label>
+              <select>
+                <option>오전 10:00 ~ 12:00</option>
+                <option>오후 12:00 ~ 14:00</option>
+                <option>오후 14:00 ~ 16:00</option>
+                <option>오후 16:00 ~ 18:00</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>배송 주소 <span class="required">*</span></label>
+            <input type="text" placeholder="서울시 강남구 테헤란로 123" required />
+          </div>
+
+          <div class="form-group">
+            <label>리본 문구 / 메모</label>
+            <textarea placeholder="예) 생일 축하해! 항상 응원해 🌸&#10;리본에 넣을 문구나 특별한 요청 사항을 적어주세요."></textarea>
+          </div>
+
+          <div class="form-submit">
+            <button type="submit" class="btn-primary">주문 신청하기 💌</button>
+          </div>
+          <p class="form-note">주문 접수 후 1시간 이내 확인 연락드립니다. 당일 주문은 오전 10시까지 가능합니다.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 푸터 ── -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">🌹 블룸 플라워</div>
+      <p class="footer-tagline">마음을 전하는 꽃, 블룸 플라워</p>
+
+      <div class="footer-contact">
+        <p>📞 <a href="tel:010-1234-5678">010-1234-5678</a></p>
+        <p>✉️ <a href="mailto:hello@bloomflower.kr">hello@bloomflower.kr</a></p>
+        <p>📍 서울시 마포구 홍익로 12, 블룸플라워샵</p>
+        <p>🕐 영업시간: 월~토 09:00 ~ 19:00 (일·공휴일 휴무)</p>
+      </div>
+
+      <div class="sns-links">
+        <a href="#" class="sns-btn instagram">📸 인스타그램</a>
+        <a href="#" class="sns-btn kakao">💬 카카오톡 채널</a>
+        <a href="#" class="sns-btn naver">📝 네이버 블로그</a>
+      </div>
+
+      <div class="footer-copy">
+        © 2026 블룸 플라워. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      alert('주문 신청이 완료되었습니다! 🌸\n확인 후 빠르게 연락드리겠습니다.');
+      e.target.reset();
+    }
+
+    // 배송일 최솟값: 오늘
+    const dateInput = document.querySelector('input[type="date"]');
+    if (dateInput) {
+      const today = new Date().toISOString().split('T')[0];
+      dateInput.min = today;
+      dateInput.value = today;
+    }
+  </script>
+
+</body>
+</html>
